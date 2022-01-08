@@ -10,31 +10,24 @@ import (
 	"strconv"
 	"unicode/utf8"
 
+	"github.com/joho/godotenv"
 	"github.com/line/line-bot-sdk-go/linebot"
 )
 
 func main() {
 	// ハンドラの登録
-	http.HandleFunc("/", helloHandler)
 	http.HandleFunc("/callback", lineHandler)
 
-	fmt.Println("http://localhost:8080")
 	// HTTPサーバーを起動
-	// log.Fatal(http.ListenAndServe(":8080", nil))
 	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
 }
 
-func helloHandler(w http.ResponseWriter, r *http.Request) {
-	msg := "Hello World!"
-	fmt.Fprintf(w, msg)
-}
-
 func lineHandler(w http.ResponseWriter, r *http.Request) {
-	// err := godotenv.Load(fmt.Sprintf("envfiles/%s.env", os.Getenv("GO_ENV")))
-	// if err != nil {
-	// 	// .env読めなかった場合の処理s
-	// 	log.Fatal(err)
-	// }
+	err := godotenv.Load(os.Getenv("GO_ENV"))
+	if err != nil {
+		// .env読めなかった場合の処理
+		log.Fatal(err)
+	}
 	secret := os.Getenv("LINE_BOT_CHANNEL_SECRET")
 	token := os.Getenv("LINE_BOT_CHANNEL_TOKEN")
 
