@@ -10,7 +10,6 @@ import (
 	"strconv"
 	"unicode/utf8"
 
-	"github.com/joho/godotenv"
 	"github.com/line/line-bot-sdk-go/linebot"
 )
 
@@ -31,11 +30,11 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func lineHandler(w http.ResponseWriter, r *http.Request) {
-	err := godotenv.Load(fmt.Sprintf("envfiles/%s.env", os.Getenv("GO_ENV")))
-	if err != nil {
-		// .env読めなかった場合の処理s
-		log.Fatal(err)
-	}
+	// err := godotenv.Load(fmt.Sprintf("envfiles/%s.env", os.Getenv("GO_ENV")))
+	// if err != nil {
+	// 	// .env読めなかった場合の処理s
+	// 	log.Fatal(err)
+	// }
 	secret := os.Getenv("LINE_BOT_CHANNEL_SECRET")
 	token := os.Getenv("LINE_BOT_CHANNEL_TOKEN")
 
